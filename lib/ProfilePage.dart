@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
-  leftWidget(){
-    return Container(
-      height: 100,
-      width: 50,
-      decoration: BoxDecoration(
-          color: Color.fromARGB(130, 228, 255, 171),
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(50), topRight: Radius.circular(50))
-      ),
-    );
-  }
+  // leftWidget(){
+  //   return Container(
+  //     height: 100,
+  //     width: 50,
+  //     decoration: BoxDecoration(
+  //         color: Color.fromARGB(130, 228, 255, 171),
+  //         borderRadius: BorderRadius.only(bottomRight: Radius.circular(50), topRight: Radius.circular(50))
+  //     ),
+  //   );
+  // }
 
   setWidgets(){
     return Column(
