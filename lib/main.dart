@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:adf2021/NewsPage.dart';
+// import 'NewsPage.dart';
+import 'package:adf2021/ProfilePage.dart';
+// import 'package:adf2021/Profile.dart';
 
 // main function represents main thread
 // whatever we code in main, is executed by main thread
@@ -39,9 +41,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My App"),
+        title: Text("My Profile"),
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 88, 139, 92),
       ),
-      body: NewsPage(),
+      body: ProfilePage(),
     );
   }
 }

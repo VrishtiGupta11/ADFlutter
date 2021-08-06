@@ -19,7 +19,7 @@ class _WebViewPageState extends State<WebViewPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if(Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
