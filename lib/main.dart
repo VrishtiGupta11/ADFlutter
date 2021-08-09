@@ -1,7 +1,7 @@
+import 'package:adf2021/News/profile.dart';
+import 'package:adf2021/News/homePage.dart';
+import 'package:adf2021/News/splashPage.dart';
 import 'package:flutter/material.dart';
-// import 'NewsPage.dart';
-import 'package:adf2021/ProfilePage.dart';
-// import 'package:adf2021/Profile.dart';
 
 // main function represents main thread
 // whatever we code in main, is executed by main thread
@@ -14,6 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,22 +31,27 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      routes: {
+        '/': (context)=> SplashPage(),
+        '/home': (context) => HomePage(),
+        '/profile' : (context) => ProfilePage()
+      },
+      initialRoute: '/',
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("My Profile"),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 88, 139, 92),
-      ),
-      body: ProfilePage(),
-    );
-  }
-}
+// class HomePage extends StatelessWidget {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("My Profile"),
+//         centerTitle: true,
+//         backgroundColor: Color.fromARGB(255, 88, 139, 92),
+//       ),
+//       body: ProfilePage(),
+//     );
+//   }
+// }

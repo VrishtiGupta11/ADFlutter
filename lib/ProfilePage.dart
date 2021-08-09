@@ -4,21 +4,34 @@ import 'package:flutter/material.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
-  // leftWidget(){
-  //   return Container(
-  //     height: 100,
-  //     width: 50,
-  //     decoration: BoxDecoration(
-  //         color: Color.fromARGB(130, 228, 255, 171),
-  //         borderRadius: BorderRadius.only(bottomRight: Radius.circular(50), topRight: Radius.circular(50))
-  //     ),
-  //   );
-  // }
+  leftWidget(){
+    return Container(
+      height: 100,
+      width: 50,
+      decoration: BoxDecoration(
+          color: Color.fromARGB(130, 228, 255, 171),
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(50), topRight: Radius.circular(50))
+      ),
+    );
+  }
 
   setWidgets(){
     return Column(
       children: [
-        SizedBox(height: 150,),
+        SizedBox(height: 40,),
+        Container(
+          height: 80,
+          width: 80,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color.fromARGB(255, 88, 139, 92),
+            image: DecorationImage(
+              image: NetworkImage("https://images.unsplash.com/photo-1627883749168-c2c8f0b9c5c7?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4N3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        SizedBox(height: 10,),
         Text("John Watson", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
         SizedBox(height: 10,),
         Text("Frontend Developer with 2 years of experience", style: TextStyle(fontSize: 15, color: Colors.grey[600]),),
@@ -80,8 +93,15 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: setWidgets(),
+    return Column(
+      children: [
+        Row(
+          children: [leftWidget()],
+        ),
+        Center(
+          child: setWidgets(),
+        ),
+      ],
     );
   }
 }
