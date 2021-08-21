@@ -1,5 +1,5 @@
 import 'dart:convert' as convert;
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -67,19 +67,20 @@ class _HomePageState extends State<HomePage> {
         title: Text("NEWS Book"),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: (){
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-            icon: Icon(Icons.home),
-            tooltip: 'Home Page',
-          ),
+          // IconButton(
+          //   onPressed: (){
+          //     Navigator.pushReplacementNamed(context, '/home');
+          //   },
+          //   icon: Icon(Icons.home),
+          //   tooltip: 'Home Page',
+          // ),
           IconButton(
               onPressed: (){
-                Navigator.pushReplacementNamed(context, '/profile');
+                // FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, '/login');
               },
-              icon: Icon(Icons.account_box),
-              tooltip: "Shopping Cart",
+              icon: Icon(Icons.logout),
+              tooltip: "logout",
           ),
         ],
         backgroundColor: Colors.orange,

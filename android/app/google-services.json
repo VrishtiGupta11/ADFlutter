@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359266880086",
+    "project_id": "adflutter1",
+    "storage_bucket": "adflutter1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359266880086:android:7cd8aca1d1ac04819b09f7",
+        "android_client_info": {
+          "package_name": "tech.acer.adf2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359266880086-7atafqgu1rt1qious70kvfer9jkqpit2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzUzv_Cy_bmvfpIWZq7QrtIA-9kgMF7Nc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359266880086-7atafqgu1rt1qious70kvfer9jkqpit2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
