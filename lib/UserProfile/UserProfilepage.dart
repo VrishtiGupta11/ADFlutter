@@ -1,5 +1,6 @@
-import 'package:adf2021/ImagePickerTask.dart';
+import 'package:adf2021/Tuts/ImagePickerTask.dart';
 import 'package:adf2021/Model/UserPage.dart';
+import 'package:adf2021/Util/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,27 +16,27 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   // var docs;
   String? imageURl;
-  AppUser? appUser;
+  // AppUser? appUser;
 
-  fetchUserDetails() async{
-    print("fetch user details");
-    String uid = FirebaseAuth.instance.currentUser!.uid.toString();
-    DocumentSnapshot document = await FirebaseFirestore.instance.collection("users").doc(uid).get();
-    // appUser = AppUser();
-    // appUser!.uid = document.get('uid').toString();
-    // appUser!.name = document.get('name').toString();
-    // appUser!.email = document.get('email').toString();
-    // appUser!.imageURL = document.get('imageURL').toString();
-    // appUser!.isAdmin = document.get('isAdmin');
-
-    appUser = AppUser(
-        name: document.get('name').toString(),
-        email: document.get('email').toString(),
-        uid: document.get('uid').toString(),
-        isAdmin: document.get('isAdmin'),
-    );
-    return appUser;
-  }
+  // fetchUserDetails() async{
+  //   print("fetch user details");
+  //   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+  //   DocumentSnapshot document = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+  //   // appUser = AppUser();
+  //   // appUser!.uid = document.get('uid').toString();
+  //   // appUser!.name = document.get('name').toString();
+  //   // appUser!.email = document.get('email').toString();
+  //   // appUser!.imageURL = document.get('imageURL').toString();
+  //   // appUser!.isAdmin = document.get('isAdmin');
+  //
+  //   appUser = AppUser(
+  //       name: document.get('name').toString(),
+  //       email: document.get('email').toString(),
+  //       uid: document.get('uid').toString(),
+  //       isAdmin: document.get('isAdmin'),
+  //   );
+  //   return appUser;
+  // }
 
 
   // Stream<DocumentSnapshot> fetchUserDetails(){
@@ -49,11 +50,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
       appBar: AppBar(
         title: Text("Profile"),
         centerTitle: true,
+        backgroundColor: Colors.redAccent.shade100,
       ),
-      body: FutureBuilder(
-        future: fetchUserDetails(),
-        builder: (context, snapshot) {
-          return ListView(
+      body: ListView(
             padding: EdgeInsets.all(16),
             children: [
               Card(
@@ -61,7 +60,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(padding: EdgeInsets.all(8)),
+                    Padding(padding: EdgeInsets.all(5)),
                     // InkWell(
                     //   child: CircleAvatar(
                     //     backgroundColor: null,
@@ -73,7 +72,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     //   },
                     // ),
                     ImagePickerPage(),
-                    Padding(padding: EdgeInsets.all(8)),
+                    Padding(padding: EdgeInsets.all(5)),
                     Divider(),
                     // StreamBuilder<DocumentSnapshot>(
                     //   stream: fetchUserDetails(),
@@ -85,31 +84,40 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     //       return Container();
                     //     },
                     // ),
-                    Text(appUser!.name.toString() , style: TextStyle(color: Colors.blueGrey, fontSize: 20),),
-                    Text(appUser!.email.toString(), style: TextStyle(color: Colors.black38, fontSize: 18),),
+                    Text(Util.appUser!.name.toString() , style: TextStyle(color: Colors.blueGrey, fontSize: 18),),
+                    Text(Util.appUser!.email.toString(), style: TextStyle(color: Colors.black38, fontSize: 16),),
+                    SizedBox(height: 10,),
                   ],
                 ),
               ),
+              SizedBox(height: 10,),
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text("Manage Profile",),
                 subtitle: Text("Update Your Data for your Account"),
                 trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: (){},
+                onTap: (){
+                  Navigator.pushNamed(context, '/manageProfile');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.shopping_cart),
                 title: Text("Manage Orders",),
                 subtitle: Text("Manage your order history here"),
                 trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: (){},
+                onTap: (){
+                  Navigator.pushNamed(context, '/manageOrders');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text("Manage Addresses",),
                 subtitle: Text("Update Your Address for your delivery"),
                 trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: (){},
+                onTap: (){
+                  // Navigator.pushNamed(context, '/googleMap');
+                  Navigator.pushNamed(context, '/address');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.message),
@@ -126,9 +134,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 onTap: (){},
               ),
             ],
-          );
-        },
-      ),
+          ),
+
 
       // body: StreamBuilder(
       //   stream: fetchUserDetails(),

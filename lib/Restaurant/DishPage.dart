@@ -18,23 +18,29 @@ class DishPage extends StatefulWidget {
 
 class _DishPageState extends State<DishPage> {
 
+  Map? cartMap;
+
   fetchDishes(){
     Stream<QuerySnapshot> stream = FirebaseFirestore.instance.collection("restaurants").doc(widget.restaurantID).collection('dishes').snapshots();
     return stream;
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.black54,
       appBar: AppBar(
-        title: Text(APP_NAME),
+        title: Text(Util.APP_NAME),
         centerTitle: true,
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.redAccent.shade100,
         actions: [
           IconButton(onPressed: (){
+            Navigator.pushNamed(context, '/cart');
+          }, icon: Icon(Icons.shopping_cart)),
+          IconButton(onPressed: (){
             FirebaseAuth.instance.signOut();
-            Navigator.pushNamed(context, '/login');
+            Navigator.pushReplacementNamed(context, '/login');
           }, icon: Icon(Icons.logout)),
         ],
       ),
@@ -54,6 +60,7 @@ class _DishPageState extends State<DishPage> {
           return ListView(
               children: snapshot.data.docs.map<Widget>((DocumentSnapshot document){
                 Map<String, dynamic> map = document.data() as Map<String, dynamic>;
+                map['docID'] = document.id.toString();
 
                 return Column(
                   children: [
@@ -79,7 +86,23 @@ class _DishPageState extends State<DishPage> {
                               title: Container(
                                 child: Column(
                                   children: [
-                                    Image.network(map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'],),
+                                    // Image.network(
+                                    //   map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'],
+                                    // ),
+                                    FadeInImage.assetNetwork(
+                                      placeholder: 'loader.gif',
+                                      image: map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'],
+                                      imageErrorBuilder: (context, error, stackTrace) {
+                                        return Center(
+                                          child: Text('Image Not Available'),
+                                        );
+                                      },
+                                      placeholderErrorBuilder: (context, error, stackTrace) {
+                                        return Center(
+                                          child: Text('Loading Image'),
+                                        );
+                                      },
+                                    ),
                                     SizedBox(height: 5,),
                                     Row(
                                       children: [
@@ -117,7 +140,8 @@ class _DishPageState extends State<DishPage> {
                                         Text("\u20b9${map['price'].toString()}", style: TextStyle(color: Colors.grey),),
                                       ],
                                     ),
-                                    Counter(),
+                                    // Counter(dish: cartMap,),
+                                    Counter(dish: map,),
                                   ],
                                 )
                               ),

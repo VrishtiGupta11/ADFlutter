@@ -45,7 +45,7 @@ class _DishDetailsState extends State<DishDetails> {
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
-        title: Text(APP_NAME),
+        title: Text(Util.APP_NAME),
         centerTitle: true,
         backgroundColor: Colors.black45,
         actions: [

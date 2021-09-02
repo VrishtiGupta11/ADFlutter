@@ -31,9 +31,9 @@ class _HomePageState extends State<HomePage> {
   var appBackgroundColor;
 
   getWidgets(){
-    var listWIdgets = <Widget>[];
+    var listWidgets = <Widget>[];
     colorPalette.forEach((key, value) {
-      listWIdgets.add(
+      listWidgets.add(
         InkWell(
           child: Column(
             children: [Text(key, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),), Divider(color: Colors.white,),],
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     });
-    return listWIdgets;
+    return listWidgets;
   }
 
   @override

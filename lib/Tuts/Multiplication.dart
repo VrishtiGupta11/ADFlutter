@@ -58,7 +58,7 @@ class Page2 extends StatelessWidget {
   multiplication(){
     List<Widget> table = [];
     for(int i=0; i<=10;i++){
-      table.add(Text('${user!.number} X ${i} = ${user!.number! * i}', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),));
+      table.add(Text('${user!.number} X $i = ${user!.number! * i}', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),));
       table.add(SizedBox(height: 10,));
     }
     return table;

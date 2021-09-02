@@ -25,6 +25,9 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
 
   @override
   Widget build(BuildContext context) {
+    if(Util.appUser == null){
+      Util.fetchUserDetails();
+    }
     return StreamBuilder(
         stream: fetchRestaurants(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -57,16 +60,19 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
           return Scaffold(
             // backgroundColor: Colors.black54,
             appBar: AppBar(
-              title: Text(APP_NAME),
+              title: Text(Util.APP_NAME),
               centerTitle: true,
-              backgroundColor: Colors.black45,
+              backgroundColor: Colors.redAccent.shade100,
               actions: [
+                IconButton(onPressed: (){
+                  Navigator.pushNamed(context, '/cart');
+                }, icon: Icon(Icons.shopping_cart)),
                 IconButton(onPressed: (){
                   FirebaseAuth.instance.signOut();
                   Navigator.pushReplacementNamed(context, '/login');
                 }, icon: Icon(Icons.logout)),
                 IconButton(onPressed: (){
-                  Navigator.pushReplacementNamed(context, '/profile');
+                  Navigator.pushNamed(context, '/profile');
                 }, icon: Icon(Icons.person)),
               ],
             ),
@@ -79,10 +85,10 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Container(
-                        height: 320,
+                        height: 295,
                         width: 320,
-                        margin: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                        // padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(top: 15,bottom: 15, left: 10, right: 10),
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -94,11 +100,43 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                         ),
                         child: Column(
                           children: [
+                            // Image.network(map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'], fit: BoxFit.fill,),
+
                             ListTile(
                               title: Container(
                                 child: Column(
                                   children: [
-                                    Image.network(map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'],),
+                                    // Image.network(
+                                    //   map['imageURL'] == "" ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299": map['imageURL'],
+                                    //   loadingBuilder: (context, child, loadingProgress) {
+                                    //     if (loadingProgress == null) return child;
+                                    //     return Center(
+                                    //       child: CircularProgressIndicator(),
+                                    //     );
+                                    //   },
+                                    //   errorBuilder: (context, error, stackTrace) {
+                                    //     return Center(
+                                    //       child: Text('Image Not available'),
+                                    //     );
+                                    //   },
+                                    // ),
+                                    FadeInImage.assetNetwork(
+                                      placeholder: 'loader.gif',
+                                      image: map['imageURL'] == ""
+                                          ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299"
+                                          : map['imageURL'],
+                                      imageErrorBuilder: (context, error, stackTrace) {
+                                        return Center(
+                                          child: Text('Image Not Available'),
+                                        );
+                                      },
+                                      placeholderErrorBuilder: (context, error, stackTrace) {
+                                        return Center(
+                                          child: Text('Loading Image'),
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(height: 5,),
                                     Row(
                                       children: [
                                         Text(map['name']),
@@ -135,6 +173,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                                 ),
                               ),
                               subtitle: Container(
+                                height: 30,
                                 child: Row(
                                   children: [
                                     Text(map['categories'].length > 30 ? map['categories'].substring(0, 30) : map['categories']),
