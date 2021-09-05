@@ -108,21 +108,42 @@ class _DishPageState extends State<DishPage> {
                                       children: [
                                         Text(map['name']),
                                         Spacer(),
-                                        Container(
-                                          height: 28,
-                                          width: 50,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(map['ratings'].toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                                              Icon(Icons.star, color: Colors.white, size: 15,)
-                                            ],
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: Colors.green[800],
-                                          ),
+                                        // Container(
+                                        //   height: 28,
+                                        //   width: 50,
+                                        //   child: Row(
+                                        //     mainAxisAlignment: MainAxisAlignment.center,
+                                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                                        //     children: [
+                                        //       Text(map['ratings'].toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                        //       Icon(Icons.star, color: Colors.white, size: 15,)
+                                        //     ],
+                                        //   ),
+                                        //   decoration: BoxDecoration(
+                                        //     borderRadius: BorderRadius.circular(8),
+                                        //     color: Colors.green[800],
+                                        //   ),
+                                        // ),
+                                        Row(
+                                          children: [
+                                            for(double i = 1; i<=map['ratings']; i++)
+                                              Icon(Icons.star, color: Colors.orangeAccent, size: 15,),
+                                            (10*map['ratings'])%10 != 0 ?
+                                            ShaderMask(
+                                              blendMode: BlendMode.srcATop,
+                                              shaderCallback: (Rect rect) {
+                                                return LinearGradient(
+                                                  stops: [0, (5 - map['ratings'])*100],
+                                                  colors: [
+                                                    Colors.orangeAccent,
+                                                    Colors.white,
+                                                  ],
+                                                ).createShader(rect);
+                                              },
+                                              child: Icon(Icons.star, size: 15, color: Colors.white,),
+                                            ) : Container(),
+                                            // Spacer(),
+                                          ],
                                         ),
                                       ],
                                     ),

@@ -1,10 +1,16 @@
 import 'package:adf2021/Model/UserPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:connectivity/connectivity.dart';
 
 class Util{
   static String APP_NAME = 'Foodie';
   static AppUser? appUser;
+
+  static Future<bool> isInternetConnected() async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi;
+  }
 
   static fetchUserDetails() async{
     print("fetch user details");

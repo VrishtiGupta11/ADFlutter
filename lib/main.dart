@@ -3,6 +3,7 @@ import 'package:adf2021/Authentication/LoginPageRestaurant.dart';
 import 'package:adf2021/Authentication/RegisterPage.dart';
 import 'package:adf2021/Authentication/RegisterPageRestaurant.dart';
 import 'package:adf2021/Authentication/SplashPageRestaurant.dart';
+import 'package:adf2021/Restaurant/payment-methods.dart';
 import 'package:adf2021/Tuts/Expanded.dart';
 import 'package:adf2021/Tuts/ImagePickerTask.dart';
 import 'package:adf2021/JohnJack/JohnJack.dart';
@@ -154,6 +155,7 @@ class _MyAppState extends State<MyApp> {
         '/cart': (context) => CartPage(),
         '/manageProfile': (context) => ManageProfilePage(),
         '/manageOrders': (context) => ManageOrdersPage(),
+        '/paymentMethods': (context) => PaymentMethodsPage(),
       },
       initialRoute: '/',
     );

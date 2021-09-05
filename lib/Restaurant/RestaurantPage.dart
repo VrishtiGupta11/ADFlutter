@@ -85,10 +85,10 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Container(
-                        height: 295,
+                        height: 290,
                         width: 320,
-                        margin: EdgeInsets.only(top: 15,bottom: 15, left: 10, right: 10),
-                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(bottom: 8),
+                        padding: EdgeInsets.only(top: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -121,6 +121,9 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                                     //   },
                                     // ),
                                     FadeInImage.assetNetwork(
+                                      height: 200,
+                                      width: 400,
+                                      fit: BoxFit.fill,
                                       placeholder: 'loader.gif',
                                       image: map['imageURL'] == ""
                                           ? "https://firebasestorage.googleapis.com/v0/b/adflutter1.appspot.com/o/restaurants%2FRestaurant.png?alt=media&token=98f6c77f-3427-4a43-bce2-9201e7da9299"
@@ -151,21 +154,42 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                                           ),
                                         ) : Container(),
                                         Spacer(),
-                                        Container(
-                                          height: 28,
-                                          width: 50,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(map['ratings'].toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                                              Icon(Icons.star, color: Colors.white, size: 15,)
-                                            ],
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: Colors.green[800],
-                                          ),
+                                        // Container(
+                                        //   height: 28,
+                                        //   width: 50,
+                                        //   child: Row(
+                                        //     mainAxisAlignment: MainAxisAlignment.center,
+                                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                                        //     children: [
+                                        //       Text(map['ratings'].toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                        //       Icon(Icons.star, color: Colors.white, size: 15,)
+                                        //     ],
+                                        //   ),
+                                        //   decoration: BoxDecoration(
+                                        //     borderRadius: BorderRadius.circular(8),
+                                        //     color: Colors.green[800],
+                                        //   ),
+                                        // ),
+                                        Row(
+                                          children: [
+                                            for(double i = 1; i<=map['ratings']; i++)
+                                              Icon(Icons.star, color: Colors.orangeAccent, size: 15,),
+                                            (10*map['ratings'])%10 != 0 ?
+                                            ShaderMask(
+                                              blendMode: BlendMode.srcATop,
+                                              shaderCallback: (Rect rect) {
+                                                return LinearGradient(
+                                                  stops: [0, (5 - map['ratings'])*100],
+                                                  colors: [
+                                                    Colors.orangeAccent,
+                                                    Colors.white,
+                                                  ],
+                                                ).createShader(rect);
+                                              },
+                                              child: Icon(Icons.star, size: 15, color: Colors.white,),
+                                            ) : Container(),
+                                            // Spacer(),
+                                          ],
                                         ),
                                       ],
                                     ),

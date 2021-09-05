@@ -21,7 +21,7 @@ class _CounterState extends State<Counter> {
     Stream<QuerySnapshot> stream = FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').snapshots();
     return stream;
   }
-  updateDishInCart(){
+  updateDishInCart() async{
 
     Dish cartDish = Dish(
       name: widget.dish!['name'],
@@ -29,13 +29,26 @@ class _CounterState extends State<Counter> {
       quantity: initialValue,
       totalPrice: widget.dish!['price']*initialValue,
       imageURL: widget.dish!['imageURL'],
+      ratings: widget.dish!['ratings'],
     );
 
-    FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').doc(widget.dish!['docID']).set(cartDish.toMap());
+    await FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').doc(widget.dish!['docID']).set(cartDish.toMap());
   }
 
-  deleteDishFromCart() {
-    FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').doc(widget.dish!['docID']).delete();
+  deleteDishFromCart() async{
+    await FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').doc(widget.dish!['docID']).delete();
+  }
+
+  void timer() {
+    Future.delayed(Duration(seconds: 30)).then((_) {
+      setState(() {
+        print("1 second closer to NYE!");
+        // Anything else you want
+        initialValue++;
+        updateDishInCart();
+      });
+      timer();
+    });
   }
 
   @override
@@ -64,8 +77,8 @@ class _CounterState extends State<Counter> {
         });
 
         return Container(
-            width: 150,
-            height: 40,
+            width: 160,
+            height: 50,
             child: (initialValue==0) ? OutlinedButton(
               // style: OutlinedButton.styleFrom(backgroundColor: Colors.blueGrey[200]),
               onPressed: (){
@@ -74,26 +87,28 @@ class _CounterState extends State<Counter> {
                   updateDishInCart();
                 });
               },
-              child: Text("ADD", style: TextStyle(color: Colors.black, ),),
+              child: Text("ADD", style: TextStyle(color: Colors.redAccent.shade100, fontWeight: FontWeight.bold),),
 
             ) : Container(
               height: 50,
-              width: 150,
+              width: 160,
               // color: Colors.blueGrey[200],
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade300),
                 borderRadius: BorderRadius.all(Radius.circular(3)),
+                // color: Colors.redAccent[100],
               ),
               child: Row(
                 children: [
                   TextButton(
+                    // style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent.shade100)),
                     onPressed: (){
-                      setState(() {
+                      setState(() async{
                         if(initialValue<=0){
                           initialValue = 0;
                         }else if(initialValue == 1){
                           initialValue--;
-                          updateDishInCart();
+                          await updateDishInCart();
                           deleteDishFromCart();
                         }else{
                           initialValue--;
@@ -115,10 +130,14 @@ class _CounterState extends State<Counter> {
                       ),
                     ),
                   ),
-
-                  Text(initialValue.toString()),
+                  Spacer(),
+                  Text(initialValue.toString(), style: TextStyle(color: Colors.black),),
                   // Text(map['quantity'].toString()),
+                  Spacer(),
                   TextButton(
+                    // onLongPress: (){
+                    //   timer();
+                    // },
                     onPressed: (){
                       setState(() {
                         initialValue++;
