@@ -64,7 +64,7 @@ class _AnimationPageState extends State<AnimationPage> {
             SizedBox(height: 24,),
             TextButton(
               onPressed: (){
-                updateAttributes();
+                animateContainer();
               },
               child: Text('Animate Controller')),
           ],

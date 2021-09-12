@@ -53,7 +53,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               map['docID'] = document.id.toString();
 
               return ListTile(
-                leading: Image.network(map['imageURL']),
+                leading: Image.network(map['imageURL'], height: 35, width: 35,),
                 title: Text(map['name']),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: (){

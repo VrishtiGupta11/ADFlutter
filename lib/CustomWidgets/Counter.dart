@@ -39,17 +39,17 @@ class _CounterState extends State<Counter> {
     await FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').doc(widget.dish!['docID']).delete();
   }
 
-  void timer() {
-    Future.delayed(Duration(seconds: 30)).then((_) {
-      setState(() {
-        print("1 second closer to NYE!");
-        // Anything else you want
-        initialValue++;
-        updateDishInCart();
-      });
-      timer();
-    });
-  }
+  // void timer() {
+  //   Future.delayed(Duration(seconds: 30)).then((_) {
+  //     setState(() {
+  //       print("1 second closer to NYE!");
+  //       // Anything else you want
+  //       initialValue++;
+  //       updateDishInCart();
+  //     });
+  //     timer();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class _CounterState extends State<Counter> {
                   TextButton(
                     // style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent.shade100)),
                     onPressed: (){
-                      setState(() async{
+                      setState(() async {
                         if(initialValue<=0){
                           initialValue = 0;
                         }else if(initialValue == 1){

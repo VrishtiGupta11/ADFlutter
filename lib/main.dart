@@ -18,6 +18,7 @@ import 'package:adf2021/Restaurant/RestaurantPage.dart';
 import 'package:adf2021/Restaurant/cart-page.dart';
 import 'package:adf2021/Tuts/fetchCurrentLocation.dart';
 import 'package:adf2021/Tuts/google-maps-with-location.dart';
+import 'package:adf2021/Tuts/tag-filters.dart';
 import 'package:adf2021/UserProfile/UserProfilepage.dart';
 import 'package:adf2021/UserProfile/add-address.dart';
 import 'package:adf2021/UserProfile/manage-orders.dart';
@@ -140,7 +141,7 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => LoginPageR(),
         '/register' : (context) => RegisterPageR(),
         '/addRestaurant': (context) => RestaurantDetails(),
-        '/restaurant' : (context) => RestaurantsPage(),
+        '/restaurant' : (context) => RestaurantFilters(),
         '/profile': (context) => UserProfilePage(),
         '/home': (context) => HomePage(),
         // '/profile' : (context) => ProfilePage(),

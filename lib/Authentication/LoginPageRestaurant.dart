@@ -22,7 +22,6 @@ class _LoginPageRState extends State<LoginPageR> {
       if(userCredential.user!.uid.toString().isNotEmpty){
         // login Success
         userCredential.user!.uid.toString() == "1bmm6EK0igbYxFadjCiN4xIUl612" ? Navigator.pushReplacementNamed(context, '/addRestaurant') : Navigator.pushReplacementNamed(context, '/restaurant');
-
       } else{
         setState(() {
           showLoader = false;

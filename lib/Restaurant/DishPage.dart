@@ -133,7 +133,8 @@ class _DishPageState extends State<DishPage> {
                                               blendMode: BlendMode.srcATop,
                                               shaderCallback: (Rect rect) {
                                                 return LinearGradient(
-                                                  stops: [0, (5 - map['ratings'])*100],
+                                                  // stops: [0, (5 - map['ratings'])*100],
+                                                  stops: [0, ((10*map['ratings'])%10) / 10],
                                                   colors: [
                                                     Colors.orangeAccent,
                                                     Colors.white,

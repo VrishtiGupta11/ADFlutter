@@ -12,6 +12,8 @@ class Util{
     return connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi;
   }
 
+  static List tags = ['all', 'indian', 'veg', 'non-veg', 'chinese', 'continental', 'italian'];
+
   static fetchUserDetails() async{
     print("fetch user details");
     String uid = FirebaseAuth.instance.currentUser!.uid.toString();
