@@ -3,6 +3,7 @@ import 'package:adf2021/Authentication/LoginPageRestaurant.dart';
 import 'package:adf2021/Authentication/RegisterPage.dart';
 import 'package:adf2021/Authentication/RegisterPageRestaurant.dart';
 import 'package:adf2021/Authentication/SplashPageRestaurant.dart';
+import 'package:adf2021/Provider/data-provider.dart';
 import 'package:adf2021/Restaurant/payment-methods.dart';
 import 'package:adf2021/Tuts/Expanded.dart';
 import 'package:adf2021/Tuts/ImagePickerTask.dart';
@@ -31,6 +32,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 
 // main function represents main thread
 // whatever we code in main, is executed by main thread
@@ -64,7 +66,12 @@ void main() async{
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => DataProvider(),),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -155,7 +162,7 @@ class _MyAppState extends State<MyApp> {
         '/address': (context) => UserAddressesPage(),
         '/cart': (context) => CartPage(),
         '/manageProfile': (context) => ManageProfilePage(),
-        '/manageOrders': (context) => ManageOrdersPage(),
+        '/manageOrders': (context) => ManageOrdersPage1(),
         '/paymentMethods': (context) => PaymentMethodsPage(),
       },
       initialRoute: '/',

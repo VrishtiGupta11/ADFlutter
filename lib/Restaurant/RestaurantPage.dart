@@ -1,3 +1,4 @@
+import 'package:adf2021/Provider/data-provider.dart';
 import 'package:adf2021/Restaurant/AddDishes.dart';
 import 'package:adf2021/Restaurant/DishPage.dart';
 import 'package:adf2021/Tuts/tag-filters.dart';
@@ -5,6 +6,8 @@ import 'package:adf2021/Util/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
 
 class RestaurantsPage extends StatefulWidget {
   
@@ -28,6 +31,14 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   //   Stream<QuerySnapshot> stream = FirebaseFirestore.instance.collection("restaurants").snapshots();
   //   return stream;
   // }
+
+  fetchRestaurantsAgain(){
+    // var restaurant = context.read<DataProvider>().restaurants;
+
+    // Whenever restaurants will be modified, automatically the set state will be executed.
+    var restaurant = context.watch<DataProvider>().restaurants;
+
+  }
 
   fetchRestaurantsWithFilter(filter){
     if(filter == 'all'){

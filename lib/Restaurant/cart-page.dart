@@ -1,10 +1,12 @@
 import 'package:adf2021/CustomWidgets/Counter.dart';
+import 'package:adf2021/Provider/data-provider.dart';
 import 'package:adf2021/Restaurant/razorpay-payment.dart';
 import 'package:adf2021/Restaurant/success.dart';
 import 'package:adf2021/Util/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -19,6 +21,12 @@ class _CartPageState extends State<CartPage> {
   var cartTotal = {};
   var selectedAddress = '';
   Map dishes = {};
+  // late int orderSize;
+
+  // getOrderSize(){
+  //   FirebaseFirestore.instance.collection('users').doc(Util.appUser!.uid).collection('orders').get().then((value) {orderSize = value.size;});
+  //   return orderSize;
+  // }
 
   fetchCart(){
     Stream<QuerySnapshot> stream = FirebaseFirestore.instance.collection("users").doc(Util.appUser!.uid).collection('cart').snapshots();
@@ -40,6 +48,7 @@ class _CartPageState extends State<CartPage> {
   }
 
   placeOrder(){
+
     Map<String, dynamic> order = Map();
 
     List li = [];
@@ -49,6 +58,9 @@ class _CartPageState extends State<CartPage> {
     order['total'] = getCartTotal();
     // order['restaurantID'] =
     order['address'] = selectedAddress;
+    // order['orderNo'] = (context.watch()<DataProvider>(context, listen: false).orders == null)? 0 : context.watch<DataProvider>().orders!.length;
+    // order['orderNo'] = getOrderSize();
+    order['timestamp'] = DateTime.now();
 
     FirebaseFirestore.instance
         .collection('users')
@@ -71,6 +83,10 @@ class _CartPageState extends State<CartPage> {
   
   navigateToSuccess(){
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessPage(message: 'Your Order of \u20b9${getCartTotal()} has been placed', title: 'Thank you', flag: true),));
+  }
+
+  navigateToError(){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessPage(message: 'Please try again', title: 'Order not Placed!', flag: false),));
   }
   
   @override
@@ -407,9 +423,14 @@ class _CartPageState extends State<CartPage> {
                                     // Save the data i.e. Dishes as Order in Orders Collection under User
                                     // Order Object ->
                                     // 1. List of Dishes   2. Total   3. Address   4. Restaurant Details
+                                    print('Placing Order');
                                     placeOrder();
+                                    print('Order Placed');
                                     clearCart();
                                     navigateToSuccess();
+                                  }
+                                  else{
+                                    navigateToError();
                                   }
 
                                   // if(paymentMethod == 'Razor Pay'){

@@ -28,6 +28,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   LocationData? _locationData;
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController labelController = TextEditingController(text: 'Place');
+  GoogleMapController? controller1;
 
   CameraPosition initPlace = CameraPosition(
     target: LatLng(30.9024779, 75.8201934),
@@ -66,6 +67,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
         target: LatLng(_locationData!.latitude!, _locationData!.longitude!),
         zoom: 20,
       );
+
+      controller1!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          initPlace
+        ),
+      );
+
     });
   }
 
@@ -104,6 +112,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   trafficEnabled: true,
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
+                    controller1 = controller;
                   },
                   markers: {
                     Marker(

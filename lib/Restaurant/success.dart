@@ -37,7 +37,7 @@ class _SuccessPageState extends State<SuccessPage> {
 
             widget.flag
                 ? Lottie.asset('assets/tick.json', width: 200)
-                : Icon(Icons.error, color: Colors.redAccent,),
+                : Icon(Icons.error, color: Colors.redAccent, size: 80,),
             SizedBox(height: 12,),
 
             Divider(),
